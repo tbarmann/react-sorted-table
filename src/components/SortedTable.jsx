@@ -81,23 +81,22 @@ export default class SortedTable extends Component {
   	const {tableDataSorted} = this.state;
     const headings = Object.keys(_.head(tableDataSorted));
     return (
-    	<div >
-      	<table className="sortedTable">
-        	<tbody>
-          	<tr>
+      <div>
+        <table className="sortedTable">
+          <tbody>
+            <tr>
               {this.renderHeadings(headings)}
             </tr>
-   						{tableDataSorted.map((row, index) => {
-              	return(
-                  <tr key={`row_${index}`}>
-                		{this.renderRow(row, index)}
-                	</tr>
-                );
-              }
-              )}
-           </tbody>
-         </table>
-    	</div>
+            {tableDataSorted.map((row, index) => {
+              return(
+                <tr key={`row_${index}`}>
+                  {this.renderRow(row, index)}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
