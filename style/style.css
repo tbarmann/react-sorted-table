@@ -1,0 +1,22 @@
+table.sortedTable, .sortedTable td, .sortedTable th {
+  border: 1px solid #999999;
+}
+ .sortedTable td, .sortedTable th {
+   padding: 5px;
+}
+
+.sortedTable th {
+  cursor: pointer;
+  text-transform: capitalize;
+}
+
+table.sortedTable {
+  border-collapse: collapse;
+}
+
+.sortedTable tr:nth-child(even) {
+  background-color: #d7e3f7;
+}
+
+.sortedTable tr:hover:not(:first-child) {
+  background-color: #dddddd;
