@@ -77,8 +77,8 @@ export default class SortedTable extends Component {
     });
   }
    
-	render() {
-  	const {tableDataSorted} = this.state;
+  render() {
+    const {tableDataSorted} = this.state;
     const headings = Object.keys(_.head(tableDataSorted));
     return (
       <div>
