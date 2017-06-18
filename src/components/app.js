@@ -36,7 +36,12 @@ const headings = [
 export default class App extends Component {
   render() {
     return (
-        <SortedTable tableData={people} headings={headings}/>
+        <SortedTable
+          tableData={people}
+          headings={headings}
+          initialSortKey="username"
+          initialSortDirection="desc"
+        />
     );
   }
 }
