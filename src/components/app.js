@@ -4,8 +4,9 @@ import _ from 'lodash';
 import SortedTable from './SortedTable.jsx';
 
 //create 10 rows of fake data
-const people = _.times(10, () => {
+const people = _.times(10, (index) => {
   return {
+    index: index,
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     city: faker.address.city(),
@@ -15,38 +16,45 @@ const people = _.times(10, () => {
   }
 });
 
-const headings = {
-  firstName: {
+console.log(faker.helpers.createCard());
+
+const headings = [
+  { 
+    key: 'index',
     display: true,
-    label: 'First name',
-    order: 1
+    label: 'index'
   },
-  lastName: {
+  {
+    key: 'firstName',
     display: true,
-    label: 'Last name',
-    order: 2
+    label: 'First name'
   },
-   city: {
+  {
+    key: 'lastName',
     display: true,
-    label: 'City',
-    order: 3
+    label: 'Last name'
   },
-  state: {
+  {
+    key: 'city',
     display: true,
-    label: 'State',
-    order: 4
+    label: 'City'
   },
-  email: {
+  {
+    key: 'state',
     display: true,
-    label: 'Email',
-    order: 5
+    label: 'State'
   },
-  phone: {
+  {
+    key: 'email',
     display: true,
-    label: 'Phone',
-    order: 6
+    label: 'Email'
+  },
+  {
+    key: 'phone',
+    display: true,
+    label: 'Phone'
   }    
-};
+];
 
 export default class App extends Component {
   render() {
