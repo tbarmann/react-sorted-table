@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import _ from 'lodash';
+import {head, map, orderBy} from 'lodash';
 
 export default class SortedTable extends Component {
 
@@ -34,7 +34,7 @@ export default class SortedTable extends Component {
    * @return {array} sorted array of objects
    */
   sortRows = (rows, sortKey, sortDirection) => {
-    return _.orderBy(rows, [sortKey], [sortDirection]);
+    return orderBy(rows, [sortKey], [sortDirection]);
   }
 
   /**
@@ -72,14 +72,14 @@ export default class SortedTable extends Component {
   }
   
   renderRow(row, rowNum) {
-  	return _.map(row, (col, index) => {
+  	return map(row, (col, index) => {
     	return (<td key={`${rowNum}_${index}`}>{col || ''}</td>);
     });
   }
    
   render() {
     const {tableDataSorted} = this.state;
-    const headings = Object.keys(_.head(tableDataSorted));
+    const headings = Object.keys(head(tableDataSorted));
     return (
       <div>
         <table className="sortedTable">
