@@ -1,5 +1,7 @@
 table.sortedTable, .sortedTable td, .sortedTable th {
-  border: 1px solid #999999;
+  border: 1px solid #CCCCCC;
+  font-family: arial;
+  font-size: 12px;
 }
  .sortedTable td, .sortedTable th {
    padding: 5px;
@@ -7,6 +9,11 @@ table.sortedTable, .sortedTable td, .sortedTable th {
 
 .sortedTable th.sortable {
   cursor: pointer;
+}
+
+.sortedTable th {
+  background-color: blue;
+  color: white;
 }
 
 table.sortedTable {
