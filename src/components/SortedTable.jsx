@@ -15,7 +15,9 @@ export default class SortedTable extends Component {
 
   static propTypes = {
     tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
-    headings: PropTypes.arrayOf(PropTypes.object)
+    headings: PropTypes.arrayOf(PropTypes.object),
+    initialSortDirection: PropTypes.string,
+    initialSortKey: PropTypes.string
   };
   /**
    * lifecycle method
@@ -23,15 +25,21 @@ export default class SortedTable extends Component {
    * in the intial state, and store the sorted array in local state
    */
   componentWillMount() {
-    const {sortKey, sortDirection} = this.state;
-    const {tableData, headings} = this.props;
+    const {
+      initialSortDirection,
+      initialSortKey,
+      tableData, 
+      headings
+    } = this.props;
     let filteredHeadings;
     if (headings) {
       filteredHeadings = _.reject(headings, {display: false});
     }
     const columnNames = Object.keys(head(tableData));
     this.setState({
-      tableDataSorted: this.sortRows(tableData, sortKey, sortDirection),
+      sortKey: initialSortKey,
+      sortDirection: initialSortDirection,
+      tableDataSorted: this.sortRows(tableData, initialSortKey, initialSortDirection),
       headings: filteredHeadings || this.createDefaultHeadings(columnNames)
     });
   }
