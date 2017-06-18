@@ -6,14 +6,16 @@ export default class SortedTable extends Component {
  constructor(props) {
     super(props);
     this.state = {
-      sortKey: 'key',
-      sortDirection: 'asc',
+      headings: {},
+      sortKey: '',
+      sortDirection: '',
       tableDataSorted: []
     };
   }
 
   static propTypes = {
-    tableData: PropTypes.arrayOf(PropTypes.object).isRequired
+    tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
+    headings: PropTypes.object
   };
   /**
    * lifecycle method
@@ -22,8 +24,19 @@ export default class SortedTable extends Component {
    */
   componentWillMount() {
     const {sortKey, sortDirection} = this.state;
-    const {tableData} = this.props;
-    this.setState({tableDataSorted: this.sortRows(tableData, sortKey, sortDirection)});
+    const {tableData, headings} = this.props;
+    const columnNames = Object.keys(head(tableData));
+    this.setState({
+      tableDataSorted: this.sortRows(tableData, sortKey, sortDirection),
+      headings: headings || this.createDefaultHeadings(columnNames)
+    });
+  }
+
+  createDefaultHeadings = (columnNames) => {
+    const headings = _.zipObject(columnNames, _.map(columnNames, (name, index) => {
+      return { display: true, label: name, order: index};
+      }));
+    return headings;
   }
 
   /**
@@ -59,12 +72,13 @@ export default class SortedTable extends Component {
     });
   }
 
-  renderHeadings(headings){
-  	return headings.map((heading, index) => {
+  renderHeadings(){
+    const {headings} = this.state;
+  	return map(headings, (heading, key) => {
       return(
-        <th key={index}>
-          <a onClick={this.handleHeadingClick(heading)}>
-            {heading}
+        <th key={key}>
+          <a onClick={this.handleHeadingClick(key)}>
+            {heading.label}
           </a>
         </th>
       );
@@ -79,13 +93,12 @@ export default class SortedTable extends Component {
    
   render() {
     const {tableDataSorted} = this.state;
-    const headings = Object.keys(head(tableDataSorted));
     return (
       <div>
         <table className="sortedTable">
           <tbody>
             <tr>
-              {this.renderHeadings(headings)}
+              {this.renderHeadings()}
             </tr>
             {tableDataSorted.map((row, index) => {
               return(
