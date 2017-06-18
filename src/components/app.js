@@ -8,28 +8,26 @@ const people = _.times(10, faker.helpers.createCard);
 const headings = [
   {
     key: 'name',
-    display: true,
     label: 'Name'
   },
   {
     key: 'username',
-    display: true,
-    label: 'Username'
+    label: 'Username',
+    sortable: false
   },
   {
     key: 'website',
-    display: true,
     label: 'Website'
   },
   {
     key: 'email',
-    display: true,
     label: 'Email'
   },
   {
     key: 'phone',
     display: true,
-    label: 'Phone'
+    label: 'Phone',
+    sortable: false
   }    
 ];
 
