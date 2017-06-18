@@ -58,6 +58,11 @@ export default class SortedTable extends Component {
    * @return {array} sorted array of objects
    */
   sortRows = (rows, sortKey, sortDirection) => {
+    const {headings} = this.state;
+    const thisHeading = _.find(headings, {key: sortKey});
+    if (_.has(thisHeading, 'sortable') && !thisHeading.sortable) {
+      return rows;
+    }
     return orderBy(rows, [sortKey], [sortDirection]);
   }
 
@@ -86,8 +91,9 @@ export default class SortedTable extends Component {
   renderHeadings(){
     const {headings} = this.state;
   	return headings.map((heading) => {
+      const sortable = !_.has(heading, 'sortable') || heading.sortable;
       return(
-        <th key={heading.key}>
+        <th className={sortable ? 'sortable' : ''} key={heading.key}>
           <a onClick={this.handleHeadingClick(heading.key)}>
             {heading.label}
           </a>

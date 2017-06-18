@@ -5,7 +5,7 @@ table.sortedTable, .sortedTable td, .sortedTable th {
    padding: 5px;
 }
 
-.sortedTable th {
+.sortedTable th.sortable {
   cursor: pointer;
 }
 
