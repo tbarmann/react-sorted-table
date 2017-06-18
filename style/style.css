@@ -7,7 +7,6 @@ table.sortedTable, .sortedTable td, .sortedTable th {
 
 .sortedTable th {
   cursor: pointer;
-  text-transform: capitalize;
 }
 
 table.sortedTable {

@@ -15,7 +15,7 @@ export default class SortedTable extends Component {
 
   static propTypes = {
     tableData: PropTypes.arrayOf(PropTypes.object).isRequired,
-    headings: PropTypes.object
+    headings: PropTypes.arrayOf(PropTypes.object)
   };
   /**
    * lifecycle method
@@ -33,10 +33,9 @@ export default class SortedTable extends Component {
   }
 
   createDefaultHeadings = (columnNames) => {
-    const headings = _.zipObject(columnNames, _.map(columnNames, (name, index) => {
-      return { display: true, label: name, order: index};
-      }));
-    return headings;
+    return columnNames.map((name) => {
+      return { key: name, display: true, label: name};
+      });
   }
 
   /**
@@ -74,20 +73,25 @@ export default class SortedTable extends Component {
 
   renderHeadings(){
     const {headings} = this.state;
-  	return map(headings, (heading, key) => {
-      return(
-        <th key={key}>
-          <a onClick={this.handleHeadingClick(key)}>
-            {heading.label}
-          </a>
-        </th>
-      );
+  	return headings.map((heading) => {
+      if (heading.display) {
+        return(
+          <th key={heading.key}>
+            <a onClick={this.handleHeadingClick(heading.key)}>
+              {heading.label}
+            </a>
+          </th>
+        );
+      }
     });
   }
   
   renderRow(row, rowNum) {
-  	return map(row, (col, index) => {
-    	return (<td key={`${rowNum}_${index}`}>{col || ''}</td>);
+    const {headings} = this.state;
+    return map(headings, (heading, index) => {
+      if (heading.display) {
+        return (<td key={`${rowNum}_${index}`}>{row[heading.key] || ''}</td>);
+      }
     });
   }
    
