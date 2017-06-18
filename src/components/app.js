@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import faker from 'faker';
+import _ from 'lodash';
 import SortedTable from './SortedTable.jsx';
 
 //create 10 rows of fake data
@@ -14,7 +15,7 @@ const people = _.times(10, () => {
   }
 });
 
-const columns = {
+const headings = {
   firstName: {
     display: true,
     label: 'First name',
@@ -50,7 +51,7 @@ const columns = {
 export default class App extends Component {
   render() {
     return (
-        <SortedTable tableData={people} columns={columns}/>
+        <SortedTable tableData={people} headings={headings}/>
     );
   }
 }
