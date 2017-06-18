@@ -25,10 +25,14 @@ export default class SortedTable extends Component {
   componentWillMount() {
     const {sortKey, sortDirection} = this.state;
     const {tableData, headings} = this.props;
+    let filteredHeadings;
+    if (headings) {
+      filteredHeadings = _.reject(headings, {display: false});
+    }
     const columnNames = Object.keys(head(tableData));
     this.setState({
       tableDataSorted: this.sortRows(tableData, sortKey, sortDirection),
-      headings: headings || this.createDefaultHeadings(columnNames)
+      headings: filteredHeadings || this.createDefaultHeadings(columnNames)
     });
   }
 
@@ -74,24 +78,21 @@ export default class SortedTable extends Component {
   renderHeadings(){
     const {headings} = this.state;
   	return headings.map((heading) => {
-      if (heading.display) {
-        return(
-          <th key={heading.key}>
-            <a onClick={this.handleHeadingClick(heading.key)}>
-              {heading.label}
-            </a>
-          </th>
-        );
-      }
+      return(
+        <th key={heading.key}>
+          <a onClick={this.handleHeadingClick(heading.key)}>
+            {heading.label}
+          </a>
+        </th>
+      );
     });
   }
   
   renderRow(row, rowNum) {
     const {headings} = this.state;
     return map(headings, (heading, index) => {
-      if (heading.display) {
-        return (<td key={`${rowNum}_${index}`}>{row[heading.key] || ''}</td>);
-      }
+      const value = _.isObject(row[heading.key]) ? '[object]' : row[heading.key];
+      return (<td key={`${rowNum}_${index}`}>{value || ''}</td>);
     });
   }
    
