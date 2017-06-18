@@ -3,46 +3,23 @@ import faker from 'faker';
 import _ from 'lodash';
 import SortedTable from './SortedTable.jsx';
 
-//create 10 rows of fake data
-const people = _.times(10, (index) => {
-  return {
-    index: index,
-    firstName: faker.name.firstName(),
-    lastName: faker.name.lastName(),
-    city: faker.address.city(),
-    state: faker.address.state(),
-    email: faker.internet.email(),
-    phone: faker.phone.phoneNumber()
-  }
-});
-
-console.log(faker.helpers.createCard());
+const people = _.times(10, faker.helpers.createCard);
 
 const headings = [
-  { 
-    key: 'index',
+  {
+    key: 'name',
     display: true,
-    label: 'index'
+    label: 'Name'
   },
   {
-    key: 'firstName',
+    key: 'username',
     display: true,
-    label: 'First name'
+    label: 'Username'
   },
   {
-    key: 'lastName',
+    key: 'website',
     display: true,
-    label: 'Last name'
-  },
-  {
-    key: 'city',
-    display: true,
-    label: 'City'
-  },
-  {
-    key: 'state',
-    display: true,
-    label: 'State'
+    label: 'Website'
   },
   {
     key: 'email',
