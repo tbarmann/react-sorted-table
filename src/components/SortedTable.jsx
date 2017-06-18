@@ -101,10 +101,12 @@ export default class SortedTable extends Component {
     return (
       <div>
         <table className="sortedTable">
-          <tbody>
+          <thead>
             <tr>
               {this.renderHeadings()}
             </tr>
+          </thead>
+          <tbody>
             {tableDataSorted.map((row, index) => {
               return(
                 <tr key={`row_${index}`}>
